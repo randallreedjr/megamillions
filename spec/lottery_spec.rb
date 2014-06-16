@@ -54,20 +54,20 @@ describe MegaMillionsScraper do
       expect(@drawing.calc_winnings()).to eq(0)
     end
 
-    it "should return seven if three regular numbers match" do
+    it "should return five if three regular numbers match" do
       @ticket.numbers = "3 4 5 7 8".split(" ")
       @ticket.megaball = "12"
       @ticket.megaplier = false
       @drawing.check_numbers(@ticket)
-      expect(@drawing.calc_winnings()).to eq(7)
+      expect(@drawing.calc_winnings()).to eq(5)
     end
 
-    it "should return one hundred if four regular numbers match" do
+    it "should return five hundred if four regular numbers match" do
       @ticket.numbers = "2 3 4 5 7".split(" ")
       @ticket.megaball = "12"
       @ticket.megaplier = false
       @drawing.check_numbers(@ticket)
-      expect(@drawing.calc_winnings()).to eq(100)
+      expect(@drawing.calc_winnings()).to eq(500)
     end
 
     it "should return one million if all five regular numbers match" do
@@ -78,44 +78,44 @@ describe MegaMillionsScraper do
       expect(@drawing.calc_winnings()).to eq(1_000_000)
     end
 
-    it "should return four if only megaball matches" do
+    it "should return one if only megaball matches" do
       @ticket.numbers = "7 8 9 10 11".split(" ")
       @ticket.megaball = "6"
       @ticket.megaplier = false
       @drawing.check_numbers(@ticket)
-      expect(@drawing.calc_winnings()).to eq(4)
+      expect(@drawing.calc_winnings()).to eq(1)
     end
 
-    it "should return four if megaball and one other number matches" do
+    it "should return two if megaball and one other number matches" do
       @ticket.numbers = "1 7 8 9 10".split(" ")
       @ticket.megaball = "6"
       @ticket.megaplier = false
       @drawing.check_numbers(@ticket)
-      expect(@drawing.calc_winnings()).to eq(4)
+      expect(@drawing.calc_winnings()).to eq(2)
     end
 
-    it "should return seven if megaball and two other numbers match" do
+    it "should return five if megaball and two other numbers match" do
       @ticket.numbers = "1 2 7 8 9".split(" ")
       @ticket.megaball = "6"
       @ticket.megaplier = false
       @drawing.check_numbers(@ticket)
-      expect(@drawing.calc_winnings()).to eq(7)
+      expect(@drawing.calc_winnings()).to eq(5)
     end
 
-    it "should return one hundred if megaball and three other numbers match" do
+    it "should return fifty if megaball and three other numbers match" do
       @ticket.numbers = "1 2 3 7 8".split(" ")
       @ticket.megaball = "6"
       @ticket.megaplier = false
       @drawing.check_numbers(@ticket)
-      expect(@drawing.calc_winnings()).to eq(100)
+      expect(@drawing.calc_winnings()).to eq(50)
     end
 
-    it "should return ten thousand if megaball and four other numbers match" do
+    it "should return five thousand if megaball and four other numbers match" do
       @ticket.numbers = "1 2 3 4 7".split(" ")
       @ticket.megaball = "6"
       @ticket.megaplier = false
       @drawing.check_numbers(@ticket)
-      expect(@drawing.calc_winnings()).to eq(10_000)
+      expect(@drawing.calc_winnings()).to eq(5_000)
     end
 
     it "should return jackpot if megaball and five other numbers match" do
@@ -135,7 +135,7 @@ describe MegaMillionsScraper do
         @ticket.megaball = "12"
         @drawing.megaplier = "3X"
         @drawing.check_numbers(@ticket)
-        expect(@drawing.calc_winnings()).to eq(21)
+        expect(@drawing.calc_winnings()).to eq(15)
       end
 
       it "should multiply winnings by megaplier with megaball" do
@@ -143,7 +143,7 @@ describe MegaMillionsScraper do
         @ticket.megaball = "6"
         @drawing.megaplier = "5X"
         @drawing.check_numbers(@ticket)
-        expect(@drawing.calc_winnings()).to eq(500)
+        expect(@drawing.calc_winnings()).to eq(250)
       end
 
       it "should not affect jackpot" do
@@ -154,12 +154,12 @@ describe MegaMillionsScraper do
         expect(@drawing.calc_winnings()).to eq(@drawing.jackpot)
       end
 
-      it "should max out at two million" do
+      it "should not max out at two million" do
         @ticket.numbers = "1 2 3 4 5".split(" ")
         @ticket.megaball = "12"
         @drawing.megaplier = "4X"
         @drawing.check_numbers(@ticket)
-        expect(@drawing.calc_winnings()).to eq(2_000_000)
+        expect(@drawing.calc_winnings()).to eq(4_000_000)
       end
     end
   end
